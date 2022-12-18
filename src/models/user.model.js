@@ -6,9 +6,9 @@ const {
 const { logger } = require("../utils/logger");
 
 class User {
-  constructor(firstname, lastname, email, password, premium) {
-    this.firstname = firstname;
-    this.lastname = lastname;
+  constructor(first_name, last_name, email, password, premium) {
+    this.first_name = first_name;
+    this.last_name = last_name;
     this.email = email;
     this.password = password;
     this.premium = premium;
@@ -18,8 +18,8 @@ class User {
     db.query(
       createNewUserQuery,
       [
-        newUser.firstname,
-        newUser.lastname,
+        newUser.first_name,
+        newUser.last_name,
         newUser.email,
         newUser.password,
         newUser.premium,
@@ -32,8 +32,8 @@ class User {
         }
         cb(null, {
           //   id: res.insertId,
-          firstname: newUser.firstname,
-          lastname: newUser.lastname,
+          first_name: newUser.first_name,
+          last_name: newUser.last_name,
           email: newUser.email,
           premium: newUser.premium,
         });

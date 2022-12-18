@@ -6,12 +6,12 @@ const {
 const { generate: generateToken } = require("../utils/token");
 
 exports.signup = (req, res) => {
-  const { firstname, lastname, email, password, premium } = req.body;
+  const { first_name, last_name, email, password, premium } = req.body;
   const hashedPassword = hashPassword(password.trim());
 
   const user = new User(
-    firstname.trim(),
-    lastname.trim(),
+    first_name.trim(),
+    last_name.trim(),
     email.trim(),
     hashedPassword,
     premium
@@ -60,8 +60,8 @@ exports.signin = (req, res) => {
           status: "success",
           data: {
             token,
-            firstname: data.firstname,
-            lastname: data.lastname,
+            first_name: data.first_name,
+            last_name: data.last_name,
             email: data.email,
             premium: data.premium,
           },

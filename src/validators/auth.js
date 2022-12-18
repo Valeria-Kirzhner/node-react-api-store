@@ -3,8 +3,8 @@ const validatorHandler = require("../middlewares/validatorHandler");
 
 const signup = (req, res, next) => {
   const schema = Joi.object().keys({
-    firstname: Joi.string().trim().alphanum().min(3).max(50).required(),
-    lastname: Joi.string().trim().alphanum().min(3).max(50).required(),
+    first_name: Joi.string().trim().alphanum().min(3).max(50).required(),
+    last_name: Joi.string().trim().alphanum().min(3).max(50).required(),
     email: Joi.string().trim().email().required(),
     password: Joi.string()
       .trim()

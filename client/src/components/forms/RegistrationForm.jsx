@@ -33,8 +33,7 @@ const RegistrationForm = ({}) => {
     }
   };
   const handleSubmit = async () => {
-    const payload = { first_name, last_name, email, password };
-    payload.premium = false;
+    const payload = { first_name, last_name, email, password, premium: 0 };
 
     try {
       await http.post("/api/auth/signup", payload);

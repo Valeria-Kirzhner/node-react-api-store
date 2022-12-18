@@ -1,10 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import userService from "../../services/userService";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({}) => {
-  const [data, setData] = useState({ email: "", password: "", name: "" });
-  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+
+    if (id === "email") {
+      setEmail(value);
+    }
+    if (id === "password") {
+      setPassword(value);
+    }
+  };
+  const handleSubmit = async () => {
+    const payload = { email, password };
+
+    try {
+      await userService.login(email, password);
+      toast("A new acoount is opened");
+      navigate("/");
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        setError({ errors: { email: "Email or password is incorrect." } });
+      }
+    }
+  };
 
   return (
     <form>
@@ -12,11 +42,13 @@ const LoginForm = ({}) => {
       <div className="form-outline mb-4">
         <input
           type="email"
-          id="form3Example3"
+          id="email"
           className="form-control form-control-lg"
           placeholder="Enter a valid email address"
+          value={email}
+          onChange={(e) => handleInputChange(e)}
         />
-        <label className="form-label" htmlFor="form3Example3">
+        <label className="form-label" htmlFor="email">
           Email address
         </label>
       </div>
@@ -25,11 +57,13 @@ const LoginForm = ({}) => {
       <div className="form-outline mb-3">
         <input
           type="password"
-          id="form3Example4"
+          id="password"
           className="form-control form-control-lg"
           placeholder="Enter password"
+          value={password}
+          onChange={(e) => handleInputChange(e)}
         />
-        <label className="form-label" htmlFor="form3Example4">
+        <label className="form-label" htmlFor="password">
           Password
         </label>
       </div>
@@ -57,6 +91,7 @@ const LoginForm = ({}) => {
           type="button"
           className="btn btn-primary btn-lg"
           style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
+          onClick={() => handleSubmit()}
         >
           Login
         </button>

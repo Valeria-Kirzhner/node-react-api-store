@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom";
 const RegistrationForm = ({}) => {
   const navigate = useNavigate();
 
-  const [first_name, setFirstName] = useState(null);
-  const [last_name, setLastName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-  const [statment, setStatment] = useState(null);
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [statment, setStatment] = useState("");
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -41,7 +42,7 @@ const RegistrationForm = ({}) => {
       navigate("/signin");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
-        this.setState({ errors: { email: "Email is taken" } });
+        setError({ errors: { email: "Email is taken" } });
       }
     }
   };

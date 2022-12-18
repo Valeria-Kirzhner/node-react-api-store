@@ -37,7 +37,7 @@ const RegistrationForm = ({}) => {
     payload.premium = false;
 
     try {
-      await http.post("/users", payload);
+      await http.post("/api/auth/signup", payload);
       toast("A new acoount is opened");
       navigate("/signin");
     } catch (ex) {

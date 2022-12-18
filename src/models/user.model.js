@@ -6,7 +6,7 @@ const {
 const { logger } = require("../utils/logger");
 
 class User {
-  constructor(firstname, lastname, email, password) {
+  constructor(firstname, lastname, email, password, premium) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
@@ -31,7 +31,7 @@ class User {
           return;
         }
         cb(null, {
-          id: res.insertId,
+          //   id: res.insertId,
           firstname: newUser.firstname,
           lastname: newUser.lastname,
           email: newUser.email,

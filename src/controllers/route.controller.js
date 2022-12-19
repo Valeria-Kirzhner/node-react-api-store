@@ -1,8 +1,10 @@
 const Route = require("../models/route.model");
 
 exports.createRoute = (req, res) => {
-  const { path, description, response, related_to } = req.body;
+  console.log(req.body);
 
+  const { path, description, response } = req.body;
+  const related_to = req.user.id;
   const route = new Route(
     path.trim(),
     description.trim(),

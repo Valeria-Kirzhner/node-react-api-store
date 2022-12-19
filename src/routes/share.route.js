@@ -2,10 +2,11 @@ const router = require("express").Router();
 const { asyncHandler } = require("../middlewares/asyncHandler");
 const { create: routeValidator } = require("../validators/route");
 const routeController = require("../controllers/route.controller");
+const checkToken = require("../middlewares/checkToken");
 
 router
   .route("/create")
-  .post(routeValidator, asyncHandler(routeController.createRoute));
+  .post(routeValidator, checkToken, asyncHandler(routeController.createRoute));
 
 router.route("/get").get(asyncHandler());
 

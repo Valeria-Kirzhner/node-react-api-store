@@ -26,6 +26,8 @@ SELECT * FROM users WHERE email = ?
 const createNewRoute = `
 INSERT INTO routes VALUES(null, ?, ?, ?, ?)
 `;
+const getUserRoutes = `
+SELECT * FROM routes WHERE related_to = ?`;
 
 module.exports = {
   createDB,
@@ -34,4 +36,5 @@ module.exports = {
   createNewUser,
   findUserByEmail,
   createNewRoute,
+  getUserRoutes,
 };

@@ -8,7 +8,9 @@ router
   .route("/create")
   .post(routeValidator, checkToken, asyncHandler(routeController.createRoute));
 
-router.route("/get").get(asyncHandler());
+router
+  .route("/my-routes")
+  .get(checkToken, asyncHandler(routeController.getUserRoutes));
 
 router.route("/get:id").get(asyncHandler());
 

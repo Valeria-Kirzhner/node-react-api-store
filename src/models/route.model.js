@@ -1,5 +1,8 @@
 const db = require("../config/db.config");
-const { createNewRoute: createNewRouteQuery } = require("../database/queries");
+const {
+  createNewRoute: createNewRouteQuery,
+  getUserRoutes: getUserRoutesQuery,
+} = require("../database/queries");
 const { logger } = require("../utils/logger");
 
 class Route {
@@ -34,6 +37,21 @@ class Route {
         });
       }
     );
+  }
+  static getRoutes(userId, cb) {
+    db.query(getUserRoutesQuery, userId, (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      if (res.length) {
+        console.log(res);
+        cb(null, res);
+        return;
+      }
+      cb({ kind: "not_found" }, null);
+    });
   }
 }
 

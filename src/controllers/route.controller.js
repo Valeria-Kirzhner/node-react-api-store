@@ -1,10 +1,9 @@
 const Route = require("../models/route.model");
 
 exports.createRoute = (req, res) => {
-  console.log(req.body);
-
   const { path, description, response } = req.body;
   const related_to = req.user.id;
+
   const route = new Route(
     path.trim(),
     description.trim(),
@@ -26,6 +25,23 @@ exports.createRoute = (req, res) => {
           description,
           response,
         },
+      });
+    }
+  });
+};
+exports.getUserRoutes = (req, res) => {
+  const related_to = req.user.id;
+
+  Route.getRoutes(related_to, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        status: "error",
+        message: err.message,
+      });
+    } else {
+      res.status(201).send({
+        status: "success",
+        data: data,
       });
     }
   });

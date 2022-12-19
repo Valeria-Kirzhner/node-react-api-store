@@ -11,7 +11,7 @@ const RouteTable = ({}) => {
   }, []);
   const getMyRoutes = async () => {
     const { data } = await routeServise.getMyRoutes();
-    if (data.length > 0) this.setState({ cards: data });
+    setRoutes([data.data]);
   };
 
   return (
@@ -31,8 +31,8 @@ const RouteTable = ({}) => {
       )}
       <tbody>
         {routes.length > 0 &&
-          routes.map((route) => {
-            return <Route route={route} />;
+          routes[0].map((route) => {
+            return <Route route={route} key={route.id} />;
           })}
       </tbody>
     </table>

@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import userService from "./services/userService";
-import Logout from "./components/logout";
+import Logout from "./components/Logout";
 
 const App = () => {
   const [user, setUser] = useState();
@@ -29,8 +29,7 @@ const App = () => {
           <Route path="/premiumSignup" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/logout" element={<Home />} />
-          <Route path="/logout" component={<Logout />} />
+          <Route path="/logout" element={<Logout />} />
 
           <Route path="/" exact element={<Home />} />
         </Routes>

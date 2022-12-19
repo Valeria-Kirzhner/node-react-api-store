@@ -23,8 +23,6 @@ const LoginForm = ({}) => {
     }
   };
   const handleSubmit = async () => {
-    const payload = { email, password };
-
     try {
       await userService.login(email, password);
       toast("A new acoount is opened");

@@ -9,7 +9,7 @@ const Signin = ({}) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (userService.getCurrentUser()) navigate("/");
-  });
+  }, []);
 
   return (
     <section className="vh-100">

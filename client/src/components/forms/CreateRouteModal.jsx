@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import routeService from "../../services/routeService";
 
-const CreateRouteModal = ({ showModal, setShowModal }) => {
+const CreateRouteModal = ({ showModal, closeModal }) => {
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [json, setJson] = useState("");
@@ -27,8 +27,8 @@ const CreateRouteModal = ({ showModal, setShowModal }) => {
       "http://localhost/api/" + localStorage.getItem("userName") + path;
     const payload = { path: fullPath, description, response: json };
     try {
+      closeModal();
       await routeService.createRoute(payload);
-      setShowModal(false);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         setError({ errors: { email: "Email or password is incorrect." } });
@@ -119,6 +119,7 @@ const CreateRouteModal = ({ showModal, setShowModal }) => {
                     type="button"
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"
+                    onClick={() => closeModal()}
                   >
                     Close
                   </button>

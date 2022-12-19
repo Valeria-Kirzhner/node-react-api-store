@@ -4,13 +4,8 @@ import CreateRouteModal from "./CreateRouteModal";
 const CreateRouteButton = ({}) => {
   const [showModal, setShowModal] = useState(true);
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
   return (
     <div className="d-grid gap-2 col-12 mx-auto mb-3">
       <button
@@ -22,7 +17,11 @@ const CreateRouteButton = ({}) => {
       >
         Add new
       </button>
-      <CreateRouteModal showModal={showModal} setShowModal={setShowModal} />
+      <CreateRouteModal
+        showModal={showModal}
+        closeModal={closeModal}
+        backdrop="static"
+      />
     </div>
   );
 };

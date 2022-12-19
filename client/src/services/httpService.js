@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import userService from "./userService";
 
 // it will send by default the token from the localStorage (in case it's there).
-//axios.defaults.headers.common["x-auth-token"] = userService.getJwt();
+axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
 
 axios.defaults.baseURL = "http://localhost:9000";
 

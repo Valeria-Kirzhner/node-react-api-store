@@ -2,7 +2,7 @@ import React from "react";
 import RouteTable from "./forms/RouteTable";
 import AddRouteButton from "./forms/AddRouteButton";
 
-const Routes = ({ user }) => {
+const Routes = ({}) => {
   return (
     <div className="container h-100 mt-5">
       <div className="row d-flex justify-content-center align-items-center h-100">

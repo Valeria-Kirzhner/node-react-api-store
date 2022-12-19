@@ -1,8 +1,8 @@
 import React from "react";
 
-const RouteTable = ({ user }) => {
+const RouteTable = ({}) => {
   return (
-    <table class="table table-hover table-bordered">
+    <table className="table table-hover table-bordered">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -22,17 +22,17 @@ const RouteTable = ({ user }) => {
           <td>Otto</td>
           <td>@mdo</td>
           <td>
-            <button type="button" class="btn btn-outline-dark">
+            <button type="button" className="btn btn-outline-dark">
               View
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" className="btn btn-outline-primary">
               Edit
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-danger">
+            <button type="button" className="btn btn-outline-danger">
               Delete
             </button>
           </td>
@@ -44,17 +44,17 @@ const RouteTable = ({ user }) => {
           <td>Otto</td>
           <td>@mdo</td>
           <td>
-            <button type="button" class="btn btn-outline-dark">
+            <button type="button" className="btn btn-outline-dark">
               View
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" className="btn btn-outline-primary">
               Edit
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-danger">
+            <button type="button" className="btn btn-outline-danger">
               Delete
             </button>
           </td>
@@ -66,17 +66,17 @@ const RouteTable = ({ user }) => {
           <td>Otto</td>
           <td>@mdo</td>
           <td>
-            <button type="button" class="btn btn-outline-dark">
+            <button type="button" className="btn btn-outline-dark">
               View
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" className="btn btn-outline-primary">
               Edit
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-danger">
+            <button type="button" className="btn btn-outline-danger">
               Delete
             </button>
           </td>

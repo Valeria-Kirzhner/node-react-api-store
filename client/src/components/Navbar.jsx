@@ -23,8 +23,8 @@ const Navbar = ({ user }) => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               {user && (
-                <NavLink className="nav-link" to="/list">
-                  List
+                <NavLink className="nav-link" to="/routes">
+                  Routes
                 </NavLink>
               )}
             </li>

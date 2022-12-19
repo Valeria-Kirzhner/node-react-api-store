@@ -55,7 +55,7 @@ exports.signin = (req, res) => {
     }
     if (data) {
       if (comparePassword(password.trim(), data.password)) {
-        const token = generateToken(data.id);
+        const token = generateToken(data.id, data.premium);
         res.status(200).send({
           status: "success",
           data: {

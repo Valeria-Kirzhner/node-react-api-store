@@ -23,6 +23,7 @@ export function getCurrentUser() {
 export function logout() {
   localStorage.removeItem(tokenKey);
   localStorage.removeItem("userName");
+  localStorage.removeItem("userInfo");
 }
 
 export async function login(email, password) {

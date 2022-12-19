@@ -23,10 +23,15 @@ const findUserByEmail = `
 SELECT * FROM users WHERE email = ?
 `;
 
+const createNewRoute = `
+INSERT INTO routes VALUES(null, ?, ?, ?, ?)
+`;
+
 module.exports = {
   createDB,
   dropDB,
   createTableUSers,
   createNewUser,
   findUserByEmail,
+  createNewRoute,
 };

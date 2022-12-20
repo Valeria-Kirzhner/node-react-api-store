@@ -29,6 +29,11 @@ INSERT INTO routes VALUES(null, ?, ?, ?, ?)
 const getUserRoutes = `
 SELECT * FROM routes WHERE related_to = ?`;
 
+const updateRoute = `
+UPDATE routes SET path = ?, description = ?, response = ? WHERE id = ? AND related_to =?`;
+const deleteRoute = `
+DELETE FROM routes WHERE id= ? AND related_to = ?`;
+
 module.exports = {
   createDB,
   dropDB,
@@ -37,4 +42,6 @@ module.exports = {
   findUserByEmail,
   createNewRoute,
   getUserRoutes,
+  updateRoute,
+  deleteRoute,
 };

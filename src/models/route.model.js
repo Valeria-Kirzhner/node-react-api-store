@@ -2,6 +2,8 @@ const db = require("../config/db.config");
 const {
   createNewRoute: createNewRouteQuery,
   getUserRoutes: getUserRoutesQuery,
+  updateRoute: updateRouteQuery,
+  deleteRoute: deleteRouteQuery,
 } = require("../database/queries");
 const { logger } = require("../utils/logger");
 
@@ -46,11 +48,37 @@ class Route {
         return;
       }
       if (res.length) {
-        console.log(res);
         cb(null, res);
         return;
       }
       cb({ kind: "not_found" }, null);
+    });
+  }
+  static editRoute(route, cb) {
+    db.query(updateRouteQuery, route, (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      if (res.length) {
+        cb(null, res[0]);
+        return;
+      }
+      cb({ kind: "not_found" }, null);
+    });
+  }
+  static delete(routeId, related_to, cb) {
+    db.query(deleteRouteQuery, [routeId, related_to], (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      cb(null, {
+        //   id: res.insertId,
+        message: "route deleted",
+      });
     });
   }
 }

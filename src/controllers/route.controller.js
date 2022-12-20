@@ -46,3 +46,41 @@ exports.getUserRoutes = (req, res) => {
     }
   });
 };
+exports.editRoute = (req, res) => {
+  const { id, path, description, response } = req.body;
+  const related_to = req.user.id;
+
+  Route.editRoute(
+    [path, description, response, id, related_to],
+    (err, data) => {
+      if (err) {
+        res.status(500).send({
+          status: "error",
+          message: err.message,
+        });
+      } else {
+        res.status(201).send({
+          status: "success",
+          data: data,
+        });
+      }
+    }
+  );
+};
+exports.deleteRoute = (req, res) => {
+  const related_to = req.user.id;
+  const routeId = req.params.id;
+
+  Route.delete(routeId, related_to, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        status: "error",
+        message: err.message,
+      });
+    } else {
+      res.status(201).send({
+        status: "success",
+      });
+    }
+  });
+};

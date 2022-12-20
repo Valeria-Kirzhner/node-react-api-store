@@ -14,8 +14,12 @@ router
 
 router.route("/get:id").get(asyncHandler());
 
-router.route("/update:id").patch(routeValidator, asyncHandler());
+router
+  .route("/update:id")
+  .put(routeValidator, checkToken, asyncHandler(routeController.editRoute));
 
-router.route("/delete:id").delete(asyncHandler());
+router
+  .route("/delete/:id")
+  .delete(checkToken, asyncHandler(routeController.deleteRoute));
 
 module.exports = router;

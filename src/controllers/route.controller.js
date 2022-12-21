@@ -86,18 +86,29 @@ exports.deleteRoute = (req, res) => {
 };
 exports.getRoute = (req, res) => {
   const fullPath = req.protocol + "://" + "localhost" + req.originalUrl;
-  console.log(fullPath);
 
-  Route.get(fullPath, (err, data) => {
+  Route.get(fullPath, async (err, data) => {
     if (err) {
       res.status(500).send({
-        status: "error",
+        status: "error while fetching response",
         message: err.message,
       });
     } else {
+      await updateVisite(req);
       res.status(201).send({
         status: "success",
         data: data,
+      });
+    }
+  });
+};
+const updateVisite = (req) => {
+  const fullPath = req.protocol + "://" + "localhost" + req.originalUrl;
+  Route.updateVisited(fullPath, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        status: "error while updating visite",
+        message: err.message,
       });
     }
   });

@@ -8,7 +8,7 @@ const AddImageButton = ({}) => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   return (
-    <div className="d-grid gap-2 col-12 mx-auto mb-3">
+    <div className="float-end mx-auto mb-3">
       <button
         className="btn btn-primary"
         type="button"

@@ -33,8 +33,9 @@ const updateRoute = `
 UPDATE routes SET path = ?, description = ?, response = ? WHERE id = ? AND related_to =?`;
 const deleteRoute = `
 DELETE FROM routes WHERE id= ? AND related_to = ?`;
-const getRoute = `
-SELECT response FROM routes WHERE path= ?`;
+
+const getRoute = `UPDATE routes SET visited=visited+1 WHERE path = ?;`;
+const updateVisite = `SELECT response FROM routes WHERE path = ?;`;
 
 module.exports = {
   createDB,
@@ -47,4 +48,5 @@ module.exports = {
   updateRoute,
   deleteRoute,
   getRoute,
+  updateVisite,
 };

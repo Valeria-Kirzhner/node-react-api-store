@@ -5,6 +5,7 @@ const {
   updateRoute: updateRouteQuery,
   deleteRoute: deleteRouteQuery,
   getRoute: getRouteQuery,
+  updateVisite: updateVisiteQuery,
 } = require("../database/queries");
 const { logger } = require("../utils/logger");
 
@@ -89,11 +90,23 @@ class Route {
         cb(err, null);
         return;
       }
-      if (res.length) {
+      if (res) {
         cb(null, res);
         return;
       }
       cb({ kind: "not_found" }, null);
+    });
+  }
+  static updateVisited(path, cb) {
+    db.query(updateVisiteQuery, path, (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      cb(null, {
+        message: "visited increased",
+      });
     });
   }
 }

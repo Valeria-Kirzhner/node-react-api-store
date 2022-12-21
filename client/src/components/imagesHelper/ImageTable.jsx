@@ -25,9 +25,9 @@ const ImageTable = ({}) => {
   };
 
   return (
-    <table className="table table-hover table-bordered">
+    <table className="table align-middle mb-0 bg-white table-hover">
       {routes.length > 0 && (
-        <thead>
+        <thead className="bg-light">
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Path</th>

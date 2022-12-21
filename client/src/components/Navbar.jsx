@@ -30,8 +30,8 @@ const Navbar = ({ user }) => {
             </li>
             <li className="nav-item">
               {user && user.premium && (
-                <NavLink className="nav-link" to="/create">
-                  Create
+                <NavLink className="nav-link" to="/images">
+                  My Images
                 </NavLink>
               )}
             </li>

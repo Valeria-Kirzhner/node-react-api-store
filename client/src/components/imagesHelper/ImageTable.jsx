@@ -1,9 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import routeServise from "../../services/routeService";
-import Route from "./Route";
-
-const RouteTable = ({}) => {
+import Image from "./Image";
+const ImageTable = ({}) => {
   const [routes, setRoutes] = useState([]);
 
   useEffect(() => {
@@ -26,9 +25,9 @@ const RouteTable = ({}) => {
   };
 
   return (
-    <table className="table align-middle mb-0 bg-white table-hover">
+    <table className="table table-hover table-bordered">
       {routes.length > 0 && (
-        <thead className="bg-light">
+        <thead>
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Path</th>
@@ -43,7 +42,7 @@ const RouteTable = ({}) => {
         {routes.length > 0 &&
           routes.map((route) => {
             return (
-              <Route
+              <Image
                 routes={routes}
                 setRoutes={setRoutes}
                 route={route}
@@ -57,4 +56,4 @@ const RouteTable = ({}) => {
     </table>
   );
 };
-export default RouteTable;
+export default ImageTable;

@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
+import Images from "./components/Images";
 import UserRoutes from "./components/Routes";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/signin" element={<Signin />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/routes" element={<UserRoutes />} />
+          <Route path="/images" element={<Images />} />
 
           <Route path="/" exact element={<Home />} />
         </Routes>

@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import CreateRouteModal from "./CreateRouteModal";
-const CreateRouteButton = ({}) => {
+import UploadImageModal from "./UploadImageModal";
+
+const AddImageButton = ({}) => {
   const [showModal, setShowModal] = useState(true);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   return (
-    <div className="float-end mx-auto mb-3">
+    <div className="d-grid gap-2 col-12 mx-auto mb-3">
       <button
         className="btn btn-primary"
         type="button"
@@ -17,7 +18,7 @@ const CreateRouteButton = ({}) => {
       >
         Add new
       </button>
-      <CreateRouteModal
+      <UploadImageModal
         showModal={showModal}
         closeModal={closeModal}
         backdrop="static"
@@ -25,4 +26,4 @@ const CreateRouteButton = ({}) => {
     </div>
   );
 };
-export default CreateRouteButton;
+export default AddImageButton;

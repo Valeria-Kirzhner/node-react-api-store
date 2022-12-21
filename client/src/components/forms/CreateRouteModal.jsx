@@ -3,6 +3,8 @@ import { useState } from "react";
 import routeService from "../../services/routeService";
 
 const CreateRouteModal = ({ showModal, closeModal }) => {
+  const prefixUrl =
+    "http://localhost/api/share/" + localStorage.getItem("userName") + "/";
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [json, setJson] = useState("");
@@ -23,8 +25,7 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
   };
 
   const handleSubmit = async () => {
-    let fullPath =
-      "http://localhost/api/" + localStorage.getItem("userName") + "/" + path;
+    let fullPath = prefixUrl + path;
     const payload = { path: fullPath, description, response: json };
     try {
       closeModal();
@@ -71,8 +72,7 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
                         </label>
                         <div className="input-group mb-3">
                           <span className="input-group-text" id="basic-addon3">
-                            http://localhost/api/
-                            {localStorage.getItem("userName")}/
+                            {prefixUrl}
                           </span>
                           <input
                             type="text"

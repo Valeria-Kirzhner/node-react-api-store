@@ -9,6 +9,8 @@ const EditRouteModal = ({
   showModal,
   closeModal,
 }) => {
+  const prefixUrl =
+    "http://localhost/api/share/" + localStorage.getItem("userName") + "/";
   const [path, setPath] = useState("");
   const [shortPath, setShortPath] = useState("");
   const [description, setDescription] = useState("");
@@ -49,11 +51,7 @@ const EditRouteModal = ({
     const descValue = descRef.current.value;
     const jsonValue = jsonRef.current.value;
 
-    let fullPath =
-      "http://localhost/api/" +
-      localStorage.getItem("userName") +
-      "/" +
-      pathValue;
+    let fullPath = prefixUrl + pathValue;
     const payload = {
       path: fullPath,
       description: descValue,
@@ -84,9 +82,7 @@ const EditRouteModal = ({
     setRoutes(mappedRoutes);
   };
   const shortedPath = (longPath) => {
-    const prefixPath =
-      "http://localhost/api/" + localStorage.getItem("userName") + "/";
-    const shorted = longPath.replace(prefixPath, "");
+    const shorted = longPath.replace(prefixUrl, "");
     setShortPath(shorted);
   };
 
@@ -125,8 +121,7 @@ const EditRouteModal = ({
                         </label>
                         <div className="input-group mb-3">
                           <span className="input-group-text" id="basic-addon3">
-                            http://localhost/api/
-                            {localStorage.getItem("userName")}/
+                            {prefixUrl}
                           </span>
                           <input
                             type="text"

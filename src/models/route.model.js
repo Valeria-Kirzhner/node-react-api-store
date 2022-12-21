@@ -4,6 +4,7 @@ const {
   getUserRoutes: getUserRoutesQuery,
   updateRoute: updateRouteQuery,
   deleteRoute: deleteRouteQuery,
+  getRoute: getRouteQuery,
 } = require("../database/queries");
 const { logger } = require("../utils/logger");
 
@@ -62,7 +63,6 @@ class Route {
         return;
       }
       if (res) {
-        console.log(res);
         cb(null, res);
         return;
       }
@@ -80,6 +80,20 @@ class Route {
         //   id: res.insertId,
         message: "route deleted",
       });
+    });
+  }
+  static get(path, cb) {
+    db.query(getRouteQuery, path, (err, res) => {
+      if (err) {
+        logger.error(err.message);
+        cb(err, null);
+        return;
+      }
+      if (res.length) {
+        cb(null, res);
+        return;
+      }
+      cb({ kind: "not_found" }, null);
     });
   }
 }

@@ -20,4 +20,6 @@ router
   .route("/delete/:id")
   .delete(checkToken, asyncHandler(routeController.deleteRoute));
 
+router.route("/:name/:path").get(asyncHandler(routeController.getRoute));
+
 module.exports = router;

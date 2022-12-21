@@ -84,3 +84,21 @@ exports.deleteRoute = (req, res) => {
     }
   });
 };
+exports.getRoute = (req, res) => {
+  const fullPath = req.protocol + "://" + "localhost" + req.originalUrl;
+  console.log(fullPath);
+
+  Route.get(fullPath, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        status: "error",
+        message: err.message,
+      });
+    } else {
+      res.status(201).send({
+        status: "success",
+        data: data,
+      });
+    }
+  });
+};

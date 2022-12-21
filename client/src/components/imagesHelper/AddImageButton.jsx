@@ -13,7 +13,7 @@ const AddImageButton = ({}) => {
         className="btn btn-primary"
         type="button"
         data-bs-toggle="modal"
-        data-bs-target="#routeModal"
+        data-bs-target="#imageModal"
         onClick={() => openModal()}
       >
         Add new

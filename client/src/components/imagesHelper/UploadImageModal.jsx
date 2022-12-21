@@ -1,35 +1,32 @@
 import React from "react";
 import { useState } from "react";
-import routeService from "../../services/routeService";
+import imageService from "../../services/imageService";
 
-const CreateRouteModal = ({ showModal, closeModal }) => {
+const UploadImageModal = ({ showModal, closeModal }) => {
   const prefixUrl =
     "http://localhost/api/share/" + localStorage.getItem("userName") + "/";
-  const [path, setPath] = useState("");
+  const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const [json, setJson] = useState("");
+  const [file, setFile] = useState("");
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
 
-    if (id === "path") {
-      setPath(value);
+    if (id === "file") {
+      setFile(file);
     }
     if (id === "description") {
       setDescription(value);
     }
-    if (id === "json") {
-      setJson(value);
-    }
   };
 
   const handleSubmit = async () => {
-    let fullPath = prefixUrl + path;
-    const payload = { path: fullPath, description, response: json };
+    // let fullPath = prefixUrl + path;
+    const payload = { file, description };
     try {
       closeModal();
-      await routeService.createRoute(payload);
+      await imageService.uploadImage(payload);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         setError({ errors: { email: "Email or password is incorrect." } });
@@ -42,18 +39,18 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
       {showModal && (
         <div
           className="modal fade  modal-xl"
-          id="routeModal"
+          id="imageModal"
           data-bs-backdrop="static"
           data-bs-keyboard="false"
           tabIndex="-1"
-          aria-labelledby="routeModal"
+          aria-labelledby="imageModal"
           aria-hidden="true"
         >
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="routeModaTitle">
-                  New Route
+                <h1 className="modal-title fs-5" id="imageModalTitle">
+                  Upload Image
                 </h1>
                 <button
                   type="button"
@@ -67,22 +64,17 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
                   <div className="row g-3">
                     <div className="col-sm">
                       <div className="form-outline">
-                        <label className="form-label" htmlFor="path">
-                          path:
+                        <label className="form-label" htmlFor="file">
+                          file:
                         </label>
-                        <div className="input-group mb-3">
-                          <span className="input-group-text" id="basic-addon3">
-                            {prefixUrl}
-                          </span>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="path"
-                            aria-describedby="path"
-                            value={path}
-                            onChange={(e) => handleInputChange(e)}
-                          />
-                        </div>
+                        <input
+                          type="file"
+                          className="form-control"
+                          id="file"
+                          aria-describedby="file"
+                          value={file}
+                          onChange={(e) => handleInputChange(e)}
+                        />
                       </div>
                     </div>
                     <div className="col-sm">
@@ -98,18 +90,6 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
                           onChange={(e) => handleInputChange(e)}
                         />
                       </div>
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="json" className="col-form-label">
-                        json:
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="json"
-                        placeholder="[ { ... } ]"
-                        value={json}
-                        onChange={(e) => handleInputChange(e)}
-                      ></textarea>
                     </div>
                   </div>{" "}
                 </div>
@@ -139,4 +119,4 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
     </div>
   );
 };
-export default CreateRouteModal;
+export default UploadImageModal;

@@ -1,16 +1,16 @@
 import React from "react";
-import EditImageModal from "./EditImageModal";
 import { useState } from "react";
 
-const Image = ({ route, routes, setRoutes, deleteRoute, editRoute }) => {
+const Image = ({ image, deleteImage }) => {
   const [showModal, setShowModal] = useState(true);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   return (
     <tr>
-      <th scope="row">{route.id}</th>
-      <td>{route.path}</td>
+      <th scope="row">{image.id}</th>
+      <td></td>
+      <td>{image.path}</td>
       <td>
         <button type="button" className="btn btn-outline-dark">
           View
@@ -19,32 +19,13 @@ const Image = ({ route, routes, setRoutes, deleteRoute, editRoute }) => {
       <td>
         <button
           type="button"
-          className="btn btn-outline-primary"
-          data-bs-toggle="modal"
-          data-bs-target={"#editRouteModal" + route.id}
-          onClick={() => openModal()}
-        >
-          Edit
-        </button>
-        <EditImageModal
-          showModal={showModal}
-          routes={routes}
-          closeModal={closeModal}
-          route={route}
-          key={route.id}
-          setRoutes={setRoutes}
-        />
-      </td>
-      <td>
-        <button
-          type="button"
           className="btn btn-outline-danger"
-          onClick={() => deleteRoute(route.id)}
+          onClick={() => deleteImage(image.id)}
         >
           Delete
         </button>
       </td>
-      <td>{route.visited}</td>
+      <td>{image.visited}</td>
     </tr>
   );
 };

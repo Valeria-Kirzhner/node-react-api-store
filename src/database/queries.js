@@ -24,7 +24,7 @@ SELECT * FROM users WHERE email = ?
 `;
 
 const createNewRoute = `
-INSERT INTO routes VALUES(null, ?, ?, ?, ?)
+INSERT INTO routes VALUES(null, ?, ?, ?, ?, 0)
 `;
 const getUserRoutes = `
 SELECT * FROM routes WHERE related_to = ?`;

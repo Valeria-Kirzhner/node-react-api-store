@@ -61,8 +61,9 @@ class Route {
         cb(err, null);
         return;
       }
-      if (res.length) {
-        cb(null, res[0]);
+      if (res) {
+        console.log(res);
+        cb(null, res);
         return;
       }
       cb({ kind: "not_found" }, null);

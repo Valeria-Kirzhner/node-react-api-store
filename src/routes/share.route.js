@@ -12,10 +12,8 @@ router
   .route("/my-routes")
   .get(checkToken, asyncHandler(routeController.getUserRoutes));
 
-router.route("/get:id").get(asyncHandler());
-
 router
-  .route("/update:id")
+  .route("/edit/:id")
   .put(routeValidator, checkToken, asyncHandler(routeController.editRoute));
 
 router

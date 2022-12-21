@@ -12,7 +12,6 @@ const RouteTable = ({}) => {
 
   const getMyRoutes = async () => {
     let { data } = await routeServise.getMyRoutes();
-    console.log(data.data);
     data = data.data;
     setRoutes(data);
   };
@@ -21,10 +20,7 @@ const RouteTable = ({}) => {
 
   const deleteRoute = async (routeId) => {
     let filteredRoutes = [...routes];
-    console.log(filteredRoutes);
     filteredRoutes = filteredRoutes.filter((route) => route.id !== routeId); // it will return all users cards exept of the card with the cardId.
-    console.log(filteredRoutes);
-
     setRoutes(filteredRoutes);
     await routeServise.deleteRoute(routeId);
   };
@@ -48,6 +44,8 @@ const RouteTable = ({}) => {
           routes.map((route) => {
             return (
               <Route
+                routes={routes}
+                setRoutes={setRoutes}
                 route={route}
                 key={route.id}
                 editRoute={editRoute}

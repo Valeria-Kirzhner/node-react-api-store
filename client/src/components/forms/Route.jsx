@@ -2,7 +2,7 @@ import React from "react";
 import EditRouteModal from "./EditRouteModal";
 import { useState } from "react";
 
-const Route = ({ route, deleteRoute, editRoute }) => {
+const Route = ({ route, routes, setRoutes, deleteRoute, editRoute }) => {
   const [showModal, setShowModal] = useState(true);
 
   const openModal = () => setShowModal(true);
@@ -21,15 +21,19 @@ const Route = ({ route, deleteRoute, editRoute }) => {
           type="button"
           className="btn btn-outline-primary"
           data-bs-toggle="modal"
-          data-bs-target="#editRouteModal"
+          data-bs-target={"#editRouteModal" + route.id}
           onClick={() => openModal()}
         >
-          <EditRouteModal
-            showModal={showModal}
-            closeModal={closeModal}
-            route={route}
-          />
+          Edit
         </button>
+        <EditRouteModal
+          showModal={showModal}
+          routes={routes}
+          closeModal={closeModal}
+          route={route}
+          key={route.id}
+          setRoutes={setRoutes}
+        />
       </td>
       <td>
         <button

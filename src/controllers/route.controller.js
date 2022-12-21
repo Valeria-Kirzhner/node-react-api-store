@@ -47,11 +47,11 @@ exports.getUserRoutes = (req, res) => {
   });
 };
 exports.editRoute = (req, res) => {
-  const { id, path, description, response } = req.body;
+  const { path, description, response } = req.body;
   const related_to = req.user.id;
-
+  const routeId = req.params.id;
   Route.editRoute(
-    [path, description, response, id, related_to],
+    [path, description, response, routeId, related_to],
     (err, data) => {
       if (err) {
         res.status(500).send({

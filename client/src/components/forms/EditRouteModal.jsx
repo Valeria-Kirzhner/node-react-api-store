@@ -1,49 +1,93 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import routeService from "../../services/routeService";
 
-const EditRouteModal = ({ route, showModal, closeModal }) => {
-  const [path, setPath] = useState();
+const EditRouteModal = ({
+  route,
+  setRoutes,
+  routes,
+  showModal,
+  closeModal,
+}) => {
+  const [path, setPath] = useState("");
+  const [shortPath, setShortPath] = useState("");
   const [description, setDescription] = useState("");
   const [json, setJson] = useState("");
   const [error, setError] = useState("");
 
+  const pathRef = useRef(null);
+  const descRef = useRef(null);
+  const jsonRef = useRef(null);
+
   useEffect(() => {
     updateStates();
-  }, []);
+  }, [route]);
 
   const updateStates = () => {
     setPath(route.path);
     setDescription(route.description);
     setJson(route.response);
+    shortedPath(route.path);
   };
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
+  //   const handleInputChange = (e) => {
+  //     const { id, value } = e.target;
 
-    if (id === "path") {
-      setPath(value);
-    }
-    if (id === "description") {
-      setDescription(value);
-    }
-    if (id === "json") {
-      setJson(value);
-    }
-  };
+  //     if (id === "path") {
+  //       setPath(value);
+  //     }
+  //     if (id === "description") {
+  //       setDescription(value);
+  //     }
+  //     if (id === "json") {
+  //       setJson(value);
+  //     }
+  //   };
 
   const handleSubmit = async () => {
+    const pathValue = pathRef.current.value;
+    const descValue = descRef.current.value;
+    const jsonValue = jsonRef.current.value;
+
     let fullPath =
-      "http://localhost/api/" + localStorage.getItem("userName") + path;
-    const payload = { path: fullPath, description, response: json };
+      "http://localhost/api/" +
+      localStorage.getItem("userName") +
+      "/" +
+      pathValue;
+    const payload = {
+      path: fullPath,
+      description: descValue,
+      response: jsonValue,
+    };
     try {
       closeModal();
-      await routeService.createRoute(payload);
+      await routeService.editRoute(route.id, payload);
+      updateRoutesChanges(route.id, payload);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         setError({ errors: { email: "Email or password is incorrect." } });
       }
     }
+  };
+  const updateRoutesChanges = (routeId, payload) => {
+    let mappedRoutes = [...routes];
+    mappedRoutes = mappedRoutes.map((r) => {
+      var temp = Object.assign({}, r);
+      if (temp.id == routeId) {
+        temp.path = payload.path;
+        temp.description = payload.description;
+        temp.response = payload.response;
+      }
+      return temp;
+    });
+    console.log(mappedRoutes);
+    setRoutes(mappedRoutes);
+  };
+  const shortedPath = (longPath) => {
+    const prefixPath =
+      "http://localhost/api/" + localStorage.getItem("userName") + "/";
+    const shorted = longPath.replace(prefixPath, "");
+    setShortPath(shorted);
   };
 
   return (
@@ -51,7 +95,7 @@ const EditRouteModal = ({ route, showModal, closeModal }) => {
       {showModal && (
         <div
           className="modal fade  modal-xl"
-          id="editRouteModal"
+          id={"editRouteModal" + route.id}
           data-bs-backdrop="static"
           data-bs-keyboard="false"
           tabIndex="-1"
@@ -89,8 +133,9 @@ const EditRouteModal = ({ route, showModal, closeModal }) => {
                             className="form-control"
                             id="path"
                             aria-describedby="path"
-                            value={path}
-                            onChange={(e) => handleInputChange(e)}
+                            defaultValue={shortPath}
+                            // onChange={(e) => handleInputChange(e)}
+                            ref={pathRef}
                           />
                         </div>
                       </div>
@@ -104,8 +149,9 @@ const EditRouteModal = ({ route, showModal, closeModal }) => {
                           type="text"
                           id="description"
                           className="form-control"
-                          value={description}
-                          onChange={(e) => handleInputChange(e)}
+                          defaultValue={description}
+                          //   onChange={(e) => handleInputChange(e)}
+                          ref={descRef}
                         />
                       </div>
                     </div>
@@ -117,8 +163,9 @@ const EditRouteModal = ({ route, showModal, closeModal }) => {
                         className="form-control"
                         id="json"
                         placeholder="[ { ... } ]"
-                        value={json}
-                        onChange={(e) => handleInputChange(e)}
+                        defaultValue={json}
+                        // onChange={(e) => handleInputChange(e)}
+                        ref={jsonRef}
                       ></textarea>
                     </div>
                   </div>{" "}

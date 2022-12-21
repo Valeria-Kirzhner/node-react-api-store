@@ -24,7 +24,7 @@ const CreateRouteModal = ({ showModal, closeModal }) => {
 
   const handleSubmit = async () => {
     let fullPath =
-      "http://localhost/api/" + localStorage.getItem("userName") + path;
+      "http://localhost/api/" + localStorage.getItem("userName") + "/" + path;
     const payload = { path: fullPath, description, response: json };
     try {
       closeModal();

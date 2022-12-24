@@ -31,11 +31,15 @@ SELECT * FROM routes WHERE related_to = ?`;
 
 const updateRoute = `
 UPDATE routes SET path = ?, description = ?, response = ? WHERE id = ? AND related_to =?`;
+
 const deleteRoute = `
 DELETE FROM routes WHERE id= ? AND related_to = ?`;
 
 const getRoute = `UPDATE routes SET visited=visited+1 WHERE path = ?;`;
+
 const updateVisite = `SELECT response FROM routes WHERE path = ?;`;
+
+const insertImage = `INSERT INTO user_images(file_src)VALUES(?)`;
 
 module.exports = {
   createDB,
@@ -49,4 +53,5 @@ module.exports = {
   deleteRoute,
   getRoute,
   updateVisite,
+  insertImage,
 };

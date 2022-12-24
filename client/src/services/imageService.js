@@ -1,7 +1,17 @@
 import http from "./httpService";
-
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:9000";
+// axios.defaults.headers.common["Content-Type"] = "multipart/form-data";
+// axios.defaults.headers = {
+//   "Content-type": "multipart/form-data",
+// };
 export function uploadImage(payload) {
-  return http.post("/api/image", payload);
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+  return axios.post("/api/image", payload, config);
 }
 
 export function getMyRoutes() {

@@ -1,20 +1,22 @@
 import React from "react";
 import { useState } from "react";
 import imageService from "../../services/imageService";
+import FormData from "form-data";
 
 const UploadImageModal = ({ showModal, closeModal }) => {
-  const prefixUrl =
-    "http://localhost/api/share/" + localStorage.getItem("userName") + "/";
-  const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState({ preview: "", data: "" });
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
 
     if (id === "file") {
-      setFile(file);
+      const img = {
+        preview: URL.createObjectURL(e.target.files[0]),
+        data: e.target.files[0],
+      };
+      setFile(img);
     }
     if (id === "description") {
       setDescription(value);
@@ -22,11 +24,13 @@ const UploadImageModal = ({ showModal, closeModal }) => {
   };
 
   const handleSubmit = async () => {
-    // let fullPath = prefixUrl + path;
-    const payload = { file, description };
+    let formData = new FormData();
+    formData.append("file", file);
+    console.log(formData);
+    const payload = { formData, description };
     try {
       closeModal();
-      await imageService.uploadImage(payload);
+      await imageService.uploadImage(formData);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         setError({ errors: { email: "Email or password is incorrect." } });
@@ -59,7 +63,7 @@ const UploadImageModal = ({ showModal, closeModal }) => {
                   aria-label="Close"
                 ></button>
               </div>
-              <form>
+              <form enctype="multipart/form-data" method="post">
                 <div className="modal-body">
                   <div className="row g-3">
                     <div className="col-sm">
@@ -69,11 +73,11 @@ const UploadImageModal = ({ showModal, closeModal }) => {
                         </label>
                         <input
                           type="file"
+                          name="file"
                           className="form-control"
                           id="file"
                           aria-describedby="file"
-                          value={file}
-                          onChange={(e) => handleInputChange(e)}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -92,6 +96,13 @@ const UploadImageModal = ({ showModal, closeModal }) => {
                       </div>
                     </div>
                   </div>{" "}
+                  <div className="col-sm mt-3">
+                    <div className="form-outline">
+                      {file.preview && (
+                        <img src={file.preview} width="100" height="70" />
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="modal-footer">
